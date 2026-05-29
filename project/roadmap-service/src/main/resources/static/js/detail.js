@@ -60,35 +60,35 @@ function renderBaseInfo() {
 }
 
 function renderLockedView() {
-  const firstWeek = roadmapData.weeks && roadmapData.weeks.length > 0
-    ? roadmapData.weeks[0]
-    : null;
+    const firstWeek = roadmapData.weeks && roadmapData.weeks.length > 0
+        ? roadmapData.weeks[0]
+        : null;
 
-  detailContainer.innerHTML = `
+    detailContainer.innerHTML = `
     <div class="detail-card">
       ${renderBaseInfo()}
 
       ${
         firstWeek
-          ? `
+            ? `
             <div class="week-section">
               <div class="week-label">${firstWeek.weekNumber}주차</div>
               <div class="checklist-area">
                 ${firstWeek.checklists
-                  .map((item) => {
+                .map((item) => {
                     return `
                       <label class="check-item">
                         <input type="checkbox" disabled>
                         <span>${item.content}</span>
                       </label>
                     `;
-                  })
-                  .join("")}
+                })
+                .join("")}
               </div>
             </div>
           `
-          : ""
-      }
+            : ""
+    }
 
       <div class="locked-section">
         <div class="lock-icon">🔒</div>
@@ -99,16 +99,39 @@ function renderLockedView() {
     </div>
   `;
 
-  const purchaseButton = document.getElementById("purchaseButton");
+    const purchaseButton = document.getElementById("purchaseButton");
 
-  purchaseButton.addEventListener("click", () => {
-    alert("구매가 완료되었습니다.");
+    purchaseButton.addEventListener("click", async () => {
+        try {
+            const response = await fetch("/api/v1/purchases", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                credentials: "include",
+                body: JSON.stringify({roadmapId: roadmapData.id})
+            });
 
-    setPurchased();
-    renderPurchasedView();
-  });
+            if (response.status === 401) {
+                alert("로그인이 필요합니다.");
+                window.location.href = "../login.html";
+                return;
+            }
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                alert(errorText || "구매에 실패했습니다.");
+                return;
+            }
+
+            alert("구매가 완료되었습니다.");
+            setPurchased();
+            renderPurchasedView();
+
+        } catch (error) {
+            console.error("구매 오류:", error);
+            alert("구매 중 오류가 발생했습니다.");
+        }
+    });
 }
-
 function renderPurchasedView() {
   detailContainer.innerHTML = `
     <div class="detail-card">
