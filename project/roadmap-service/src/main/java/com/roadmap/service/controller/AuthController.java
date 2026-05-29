@@ -15,15 +15,27 @@ public class AuthController {
 
     private final AuthService authService;
 
-    // POST /api/v1/auth/login
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpSession session) {
-        User user = authService.login(request);
-        session.setAttribute("userId", user.getId());
-        return ResponseEntity.ok(user);
+        try {
+            User user = authService.login(request);
+            session.setAttribute("userId", user.getId());
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
-    // GET /api/v1/users/me
+    @PostMapping("/auth/register")
+    public ResponseEntity<?> register(@RequestBody LoginRequest request) {
+        try {
+            User user = authService.register(request);
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @GetMapping("/users/me")
     public ResponseEntity<?> getMe(HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");
