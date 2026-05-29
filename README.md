@@ -10,7 +10,7 @@
 |------|------|
 | Language | Java 17 |
 | Framework | Spring Boot 4.0.6 |
-| Database | MySQL 8.0 |
+| Database | MySQL 8.0 (Railway 클라우드) |
 | ORM | Spring Data JPA / Hibernate |
 | Security | Spring Security |
 | Build Tool | Gradle |
@@ -65,7 +65,7 @@ src/
 ---
 
 ## 🗄 데이터베이스 구조
-![ERD](ERD.png)
+
 ```
 users          # 사용자
 ├── id
@@ -181,44 +181,40 @@ purchases      # 구매 내역
 
 ## ⚙️ 실행 방법
 
-### 1. MySQL 데이터베이스 생성
-```sql
-CREATE DATABASE roadmap_db;
+### 1. 저장소 클론
+```bash
+git clone https://github.com/kkalist0817/2026-13-.git
 ```
 
-### 2. application.properties 설정
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/roadmap_db?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-spring.datasource.username=root
-spring.datasource.password=본인_비밀번호
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
-
-server.port=8080
-```
+### 2. application.properties 확인
+DB는 Railway 클라우드에 이미 구축되어 있어서 **별도 MySQL 설치 없이** 바로 실행 가능합니다.
+`application.properties` 파일이 이미 설정되어 있습니다.
 
 ### 3. 서버 실행
 IntelliJ에서 `RoadmapServiceApplication.java` 실행
 
 ### 4. 접속
 ```
-http://localhost:8080
+http://localhost:8080/login.html
 ```
+
+---
+
+## ☁️ 클라우드 DB (Railway)
+
+- Railway를 사용하여 MySQL DB를 클라우드에 구축했습니다
+- 회원가입, 로그인, 로드맵 생성, 구매 내역이 모두 클라우드 DB에 저장됩니다
+- 팀원 모두 같은 DB를 공유하므로 데이터가 실시간으로 반영됩니다
+
+> ⚠️ application.properties의 DB 접속 정보는 대회 심사용 테스트 DB입니다.
 
 ---
 
 ## 📌 참고사항
 
 - 서버 실행 시 DB 테이블이 자동으로 생성됩니다
-- 현재 로컬 환경에서만 실행 가능합니다
+- 별도 MySQL 설치 없이 바로 실행 가능합니다
 
-## ⚠️ 보안 안내
-application.properties의 DB 접속 정보는 
-대회 심사용 테스트 DB입니다.
-심사 완료 후 DB를 삭제할 예정입니다.
 
 
 
