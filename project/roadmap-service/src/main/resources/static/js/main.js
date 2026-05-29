@@ -25,3 +25,27 @@ renderRoadmaps();
 addBtn.addEventListener('click', function() {
     window.location.href = 'roadmap-search.html';
 });
+
+const mainSearchInput = document.getElementById("mainSearchInput");
+const mainSearchButton = document.getElementById("mainSearchButton");
+
+function moveToSearchPage() {
+  const keyword = mainSearchInput.value.trim();
+
+  if (!keyword) {
+    location.href = "roadmap-search.html";
+    return;
+  }
+
+  location.href = `roadmap-search.html?keyword=${encodeURIComponent(keyword)}`;
+}
+
+if (mainSearchButton && mainSearchInput) {
+  mainSearchButton.addEventListener("click", moveToSearchPage);
+
+  mainSearchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      moveToSearchPage();
+    }
+  });
+}
