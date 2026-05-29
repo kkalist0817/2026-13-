@@ -215,7 +215,8 @@ http://localhost:8080/login.html
 - 서버 실행 시 DB 테이블이 자동으로 생성됩니다
 - 별도 MySQL 설치 없이 바로 실행 가능합니다
 
-\n
+
+---
 
 
 # 🎨 Frontend 구현 내용
