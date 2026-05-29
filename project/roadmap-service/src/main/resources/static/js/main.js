@@ -10,8 +10,8 @@ const allRoadmaps = [
   { id: 4, title: "TOEIC 950점 달성" }
 ];
 
-// 처음부터 메인에 보여줄 기본 구매 내역
-const defaultPurchasedRoadmapIds = [3, 4];
+// 가짜 구매내역 제거
+const defaultPurchasedRoadmapIds = [];
 
 function getPurchasedRoadmaps() {
   const savedIds = JSON.parse(localStorage.getItem(PURCHASED_LIST_KEY)) || [];
@@ -24,19 +24,30 @@ function getPurchasedRoadmaps() {
 const addBtn = document.getElementById('addBtn');
 
 function renderRoadmaps() {
-    const myPurchasedRoadmaps = getPurchasedRoadmaps();
+  const myPurchasedRoadmaps = getPurchasedRoadmaps();
 
-    const cardsHtml = myPurchasedRoadmaps.map(roadmap => `
-        <button class="roadmap-card" onclick="window.location.href='loadmap-detail.html?id=${roadmap.id}'">
-            <div class="card-thumbnail"></div>
-            <h3>${roadmap.title}</h3>
-            <span style="display:inline-block; margin-top:10px; color:#0f766e; font-weight:bold;">이어서 학습하기 &rarr;</span>
-        </button>
-    `).join('');
+  if (myPurchasedRoadmaps.length === 0) {
+    const emptyHtml = `
+      <div class="empty-purchased-message" style="padding: 30px; text-align: center; color: #777;">
+        아직 구매한 로드맵이 없습니다.<br>
+        원하는 로드맵을 검색하고 구매해보세요!
+      </div>
+    `;
 
-    addBtn.insertAdjacentHTML('beforebegin', cardsHtml);
+    addBtn.insertAdjacentHTML("beforebegin", emptyHtml);
+    return;
+  }
+
+  const cardsHtml = myPurchasedRoadmaps.map(roadmap => `
+    <button class="roadmap-card" onclick="window.location.href='loadmap-detail.html?id=${roadmap.id}'">
+      <div class="card-thumbnail"></div>
+      <h3>${roadmap.title}</h3>
+      <span style="display:inline-block; margin-top:10px; color:#0f766e; font-weight:bold;">이어서 학습하기 &rarr;</span>
+    </button>
+  `).join("");
+
+  addBtn.insertAdjacentHTML("beforebegin", cardsHtml);
 }
-
 renderRoadmaps();
 
 addBtn.addEventListener('click', function() {
