@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>메인 화면 | 꿈조각</title>
+  <link rel="stylesheet" href="../css/roadmap.css" />
+</head>
+<body>
+
+  <!-- 교체할 헤더 영역 -->
+<header class="header" style="display: flex; justify-content: space-between; align-items: center;">
+  <button class="logo-button" onclick="location.href='main.html'" style="background: none; border: none; cursor: pointer; text-align: left;">
+    <h1 style="margin: 0; color: #333;">꿈조각</h1>
+    <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">목표를 이룬 사람들의 로드맵 거래 플랫폼</p>
+  </button>
+
+  <!-- 🌟 새로 추가된 로드맵 만들기 버튼 -->
+  <button onclick="location.href='roadmap-create.html'" style="background-color: #0f766e; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: background 0.2s;">
+    + 로드맵 만들기
+  </button>
+</header>
+  
+
+  <main class="container">
+    <section class="search-section">
+      <div class="search-bar">
+        <input type="text" placeholder="검색어를 입력하세요" />
+        <button class="search-button">검색</button>
+      </div>
+    </section>
+
+    <section class="result-section">
+      <div class="section-title">
+        <h2>내 구매 내역</h2>
+      </div>
+
+      <div class="card-grid" id="cardGrid">
+        <button class="roadmap-card" id="addBtn" style="display:flex; justify-content:center; align-items:center; font-size: 40px; color: #64748b; background: transparent; border: 2px dashed #cbd5e1;">
+          +
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 로드맵 생성 | 꿈조각</title>
+    <link rel="stylesheet" href="../css/roadmap.css">
+    <style>
+        /* 생성 폼 전용 스타일 (새 테마 색상 적용) */
+        .form-box { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; }
+        .input-row { display: flex; align-items: center; background: #f8fafc; padding: 12px 18px; border-radius: 12px; }
+        .input-row label { width: 90px; font-size: 14px; font-weight: bold; color: #475569; }
+        .input-row input { flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-size: 14px; }
+        .btn-group { display: flex; justify-content: space-between; margin-top: 30px; }
+        .add-week-btn { background: #e2e8f0; color: #475569; border: none; border-radius: 10px; padding: 11px 24px; font-weight: bold; cursor: pointer;}
+        .add-week-btn:hover { background: #cbd5e1; }
+    </style>
+</head>
+<body>
+    <header class="header">
+      <button class="logo-button" onclick="location.href='main.html'">
+        <h1>꿈조각</h1>
+        <p>목표를 이룬 사람들의 로드맵 거래 플랫폼</p>
+      </button>
+    </header>
+
+    <main class="container">
+        <div class="detail-card">
+            <div class="detail-header">
+                <h1>새 로드맵 생성</h1>
+                <p>나만의 노하우를 공유해보세요</p>
+            </div>
+            
+            <div class="form-box">
+                <div class="input-row"><label>제목</label><input type="text" id="title" placeholder="예: 정보처리기사 실기"></div>
+                <div class="input-row"><label>간단 설명</label><input type="text" id="description" placeholder="로드맵 목표를 적어주세요"></div>
+                <div class="input-row"><label>기간</label><input type="text" id="duration" placeholder="예: 4주"></div>
+                <div class="input-row"><label>난이도</label><input type="text" id="difficulty" placeholder="예: 상"></div>
+                <div class="input-row"><label>시작 수준</label><input type="text" id="startLevel" placeholder="예: 전공자"></div>
+            </div>
+
+            <div id="weeksContainer"></div>
+
+            <div class="btn-group">
+                <button id="addWeekBtn" class="add-week-btn">+ 주차 추가</button>
+                <button id="submitBtn" class="save-button">로드맵 생성 완료</button> 
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/create.js"></script>
+</body>
+</html>

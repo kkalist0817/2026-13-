@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 화면</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <h2>로그인</h2>
+        
+        <div class="login-box">
+            <div class="input-area">
+                <div class="input-row">
+                    <label for="userid">ID:</label>
+                    <input type="text" id="userid" placeholder="아이디를 입력하세요">
+                </div>
+                
+                <div class="input-row">
+                    <label for="userpw">PW:</label>
+                    <input type="password" id="userpw" placeholder="비밀번호를 입력하세요">
+                </div>
+
+                <div id="errorMessage" class="error-message">
+    아이디와 비밀번호를 모두 입력해주세요.
+</div>
+            </div>
+            
+           
+            
+            <button class="login-button" id="loginBtn">로그인</button>
+
+             
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
