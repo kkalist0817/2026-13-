@@ -220,7 +220,7 @@ http://localhost:8080
 
 
 
-  ## Frontend 구현 내용
+  # 💻Frontend 구현 내용
 
 프론트엔드는 별도의 프레임워크 없이 **HTML, CSS, JavaScript** 기반으로 구현되었습니다.
 프론트엔드 파일은 Spring Boot의 정적 리소스 경로인 `src/main/resources/static` 폴더에 위치하고, 백엔드 서버 실행 후 `http://localhost:8080/login.html` 주소를 통해 접근할 수 있습니다.
