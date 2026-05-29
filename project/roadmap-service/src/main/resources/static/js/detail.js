@@ -185,6 +185,18 @@ purchaseButton.addEventListener("click", () => {
   alert("구매가 완료되었습니다.");
 
   localStorage.setItem(PURCHASE_KEY, "true");
+
+  const PURCHASED_LIST_KEY = "purchased-roadmap-ids";
+
+  const purchasedIds =
+    JSON.parse(localStorage.getItem(PURCHASED_LIST_KEY)) || [];
+
+  if (!purchasedIds.includes(mockDetailData.id)) {
+    purchasedIds.push(mockDetailData.id);
+  }
+
+  localStorage.setItem(PURCHASED_LIST_KEY, JSON.stringify(purchasedIds));
+
   mockDetailData.isPurchased = true;
 
   renderPurchasedView();

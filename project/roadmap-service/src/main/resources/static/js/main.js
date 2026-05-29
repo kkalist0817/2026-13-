@@ -1,14 +1,31 @@
 // 1. 임시 데이터 (나중에 백엔드에서 받아올 내 구매 내역 데이터)
-const myPurchasedRoadmaps = [
-    { id: 1, title: "Toeic: 950점 달성" },
-    { id: 2, title: "취업: 00기업 취업" },
-    { id: 3, title: "정보처리기사" },
-    { id: 4, title: "정보처리기사2" }
+const PURCHASED_LIST_KEY = "purchased-roadmap-ids";
+
+// 전체 로드맵 목록
+// detail.js / search.js의 id와 맞춰야 함
+const allRoadmaps = [
+  { id: 1, title: "ADsP 3주 단기합격" },
+  { id: 2, title: "노베이스 ADsP 합격" },
+  { id: 3, title: "정보처리기사 실기" },
+  { id: 4, title: "TOEIC 950점 달성" }
 ];
+
+// 처음부터 메인에 보여줄 기본 구매 내역
+const defaultPurchasedRoadmapIds = [3, 4];
+
+function getPurchasedRoadmaps() {
+  const savedIds = JSON.parse(localStorage.getItem(PURCHASED_LIST_KEY)) || [];
+
+  const mergedIds = [...new Set([...defaultPurchasedRoadmapIds, ...savedIds])];
+
+  return allRoadmaps.filter((roadmap) => mergedIds.includes(roadmap.id));
+}
 
 const addBtn = document.getElementById('addBtn');
 
 function renderRoadmaps() {
+    const myPurchasedRoadmaps = getPurchasedRoadmaps();
+
     const cardsHtml = myPurchasedRoadmaps.map(roadmap => `
         <button class="roadmap-card" onclick="window.location.href='loadmap-detail.html?id=${roadmap.id}'">
             <div class="card-thumbnail"></div>
