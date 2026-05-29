@@ -1,251 +1,161 @@
-const detailDataList = [
-  {
-    id: 1,
-    title: "ADsP 3주 단기합격",
-    description: "노베이스도 가능한 ADsP 합격 로드맵입니다.",
-    duration: "3주",
-    difficulty: "중상",
-    startLevel: "비전공자",
-    isPurchased: false,
-    weeks: [
-      {
-        weekNumber: 1,
-        checklists: [
-          { id: 101, content: "1과목 adapter 강의", completed: false },
-          { id: 102, content: "개념문제풀이", completed: true }
-        ]
-      },
-      {
-        weekNumber: 2,
-        checklists: [
-          { id: 201, content: "2과목 adapter 강의", completed: false },
-          { id: 202, content: "개념문제풀이", completed: false }
-        ]
-      },
-      {
-        weekNumber: 3,
-        checklists: [
-          { id: 301, content: "3과목 adapter 강의", completed: false },
-          { id: 302, content: "개념문제풀이", completed: false }
-        ]
-      }
-    ]
-  },
-  {
-    id: 2,
-    title: "노베이스 ADsP 합격",
-    description: "처음 시작하는 사람을 위한 ADsP 로드맵입니다.",
-    duration: "4주",
-    difficulty: "중",
-    startLevel: "초보자",
-    isPurchased: false,
-    weeks: [
-      {
-        weekNumber: 1,
-        checklists: [
-          { id: 401, content: "데이터 분석 기초 개념 정리", completed: false },
-          { id: 402, content: "시험 범위 확인", completed: false }
-        ]
-      },
-      {
-        weekNumber: 2,
-        checklists: [
-          { id: 501, content: "1과목 핵심 이론 학습", completed: false },
-          { id: 502, content: "단원별 문제 풀이", completed: false }
-        ]
-      }
-    ]
-  },
-  {
-    id: 3,
-    title: "정보처리기사 실기",
-    description: "한 달 만에 끝내는 정처기 실기 로드맵입니다.",
-    duration: "4주",
-    difficulty: "상",
-    startLevel: "전공자",
-    isPurchased: true,
-    weeks: [
-      {
-        weekNumber: 1,
-        checklists: [
-          { id: 601, content: "디자인 패턴 암기", completed: false },
-          { id: 602, content: "SQL 기본 문법 정리", completed: false }
-        ]
-      },
-      {
-        weekNumber: 2,
-        checklists: [
-          { id: 603, content: "프로그래밍 문제 풀이", completed: false },
-          { id: 604, content: "기출 1회 풀이", completed: false }
-        ]
-      }
-    ]
-  },
-  {
-    id: 4,
-    title: "TOEIC 950점 달성",
-    description: "토익 고득점을 목표로 하는 2개월 집중 로드맵입니다.",
-    duration: "2개월",
-    difficulty: "상",
-    startLevel: "700점 이상",
-    isPurchased: true,
-    weeks: [
-      {
-        weekNumber: 1,
-        checklists: [
-          { id: 701, content: "기본 실력 진단 테스트", completed: false },
-          { id: 702, content: "LC Part 3 문제 풀이", completed: false }
-        ]
-      },
-      {
-        weekNumber: 2,
-        checklists: [
-          { id: 703, content: "RC 문법 빈출 유형 정리", completed: false },
-          { id: 704, content: "실전 모의고사 1회", completed: false }
-        ]
-      }
-    ]
-  }
-];
-
 const detailContainer = document.getElementById("detailContainer");
 
 const urlParams = new URLSearchParams(location.search);
-const roadmapId = Number(urlParams.get("id")) || 1;
+const roadmapId = Number(urlParams.get("id"));
 
-const mockDetailData =
-  detailDataList.find((roadmap) => roadmap.id === roadmapId) || detailDataList[0];
+let roadmapData = null;
+let progressState = {};
 
-const PROGRESS_KEY = `roadmap-progress-${mockDetailData.id}`;
-const PURCHASE_KEY = `roadmap-purchased-${mockDetailData.id}`;
+function getProgressKey() {
+  return `roadmap-progress-${roadmapData.id}`;
+}
 
-const savedPurchased = localStorage.getItem(PURCHASE_KEY) === "true";
+function getPurchaseKey() {
+  return `roadmap-purchased-${roadmapData.id}`;
+}
 
-mockDetailData.isPurchased = mockDetailData.isPurchased || savedPurchased;
+async function fetchRoadmapDetail() {
+  const response = await fetch(`/api/v1/roadmaps/${roadmapId}`, {
+    method: "GET",
+    credentials: "include"
+  });
 
-let progressState = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
-
-function renderDetailPage() {
-  if (mockDetailData.isPurchased) {
-    renderPurchasedView();
-  } else {
-    renderLockedView();
+  if (!response.ok) {
+    throw new Error("로드맵 상세 정보를 불러오지 못했습니다.");
   }
+
+  return response.json();
+}
+
+function isPurchased() {
+  return localStorage.getItem(getPurchaseKey()) === "true";
+}
+
+function setPurchased() {
+  localStorage.setItem(getPurchaseKey(), "true");
+
+  const purchasedListKey = "purchased-roadmap-ids";
+  const purchasedIds = JSON.parse(localStorage.getItem(purchasedListKey)) || [];
+
+  if (!purchasedIds.includes(roadmapData.id)) {
+    purchasedIds.push(roadmapData.id);
+  }
+
+  localStorage.setItem(purchasedListKey, JSON.stringify(purchasedIds));
 }
 
 function renderBaseInfo() {
   return `
     <div class="detail-header">
-      <h1>${mockDetailData.title}</h1>
-      <p>${mockDetailData.description}</p>
+      <h1>${roadmapData.title}</h1>
+      <p>${roadmapData.description}</p>
 
       <div class="roadmap-info">
-        <span>기간: ${mockDetailData.duration}</span>
-        <span>난이도: ${mockDetailData.difficulty}</span>
-        <span>시작 수준: ${mockDetailData.startLevel}</span>
+        <span>기간: ${roadmapData.duration}</span>
+        <span>난이도: ${roadmapData.difficulty}</span>
+        <span>시작 수준: ${roadmapData.startLevel}</span>
       </div>
     </div>
   `;
 }
 
 function renderLockedView() {
-  const firstWeek = mockDetailData.weeks[0];
+  const firstWeek = roadmapData.weeks && roadmapData.weeks.length > 0
+    ? roadmapData.weeks[0]
+    : null;
 
   detailContainer.innerHTML = `
-    ${renderBaseInfo()}
+    <div class="detail-card">
+      ${renderBaseInfo()}
 
-    <div class="week-section">
-      <button class="week-label">${firstWeek.weekNumber}주차</button>
+      ${
+        firstWeek
+          ? `
+            <div class="week-section">
+              <div class="week-label">${firstWeek.weekNumber}주차</div>
+              <div class="checklist-area">
+                ${firstWeek.checklists
+                  .map((item) => {
+                    return `
+                      <label class="check-item">
+                        <input type="checkbox" disabled>
+                        <span>${item.content}</span>
+                      </label>
+                    `;
+                  })
+                  .join("")}
+              </div>
+            </div>
+          `
+          : ""
+      }
 
-      <div class="checklist-area">
-        ${firstWeek.checklists
-          .map((item) => {
-            return `
-              <label class="check-item">
-                <input type="checkbox" disabled ${item.completed ? "checked" : ""} />
-                ${item.content}
-              </label>
-            `;
-          })
-          .join("")}
+      <div class="locked-section">
+        <div class="lock-icon">🔒</div>
+        <div>구매 후 전체 로드맵을 확인할 수 있습니다.</div>
       </div>
-    </div>
 
-    <div class="locked-section">
-      <div class="lock-icon">🔒</div>
-      <p>구매 후 전체 로드맵을 확인할 수 있습니다.</p>
+      <button class="purchase-button" id="purchaseButton">구매</button>
     </div>
-
-    <button id="purchaseButton" class="purchase-button">구매</button>
   `;
 
   const purchaseButton = document.getElementById("purchaseButton");
 
-purchaseButton.addEventListener("click", () => {
-  alert("구매가 완료되었습니다.");
+  purchaseButton.addEventListener("click", () => {
+    alert("구매가 완료되었습니다.");
 
-  localStorage.setItem(PURCHASE_KEY, "true");
-
-  const PURCHASED_LIST_KEY = "purchased-roadmap-ids";
-
-  const purchasedIds =
-    JSON.parse(localStorage.getItem(PURCHASED_LIST_KEY)) || [];
-
-  if (!purchasedIds.includes(mockDetailData.id)) {
-    purchasedIds.push(mockDetailData.id);
-  }
-
-  localStorage.setItem(PURCHASED_LIST_KEY, JSON.stringify(purchasedIds));
-
-  mockDetailData.isPurchased = true;
-
-  renderPurchasedView();
-});
-
+    setPurchased();
+    renderPurchasedView();
+  });
 }
 
 function renderPurchasedView() {
   detailContainer.innerHTML = `
-    ${renderBaseInfo()}
+    <div class="detail-card">
+      ${renderBaseInfo()}
 
-    <div class="purchased-badge">구매 완료</div>
+      <div class="purchased-badge">구매 완료</div>
 
-    ${mockDetailData.weeks
-      .map((week) => {
-        return `
-          <div class="week-section">
-            <button class="week-label">${week.weekNumber}주차</button>
+      ${
+        roadmapData.weeks && roadmapData.weeks.length > 0
+          ? roadmapData.weeks
+              .map((week) => {
+                return `
+                  <div class="week-section">
+                    <div class="week-label">${week.weekNumber}주차</div>
+                    <div class="checklist-area">
+                      ${week.checklists
+                        .map((item) => {
+                          const checked =
+                            progressState[item.id] !== undefined
+                              ? progressState[item.id]
+                              : item.completed;
 
-            <div class="checklist-area">
-              ${week.checklists
-                .map((item) => {
-                  const checked =
-                    progressState[item.id] !== undefined
-                      ? progressState[item.id]
-                      : item.completed;
+                          return `
+                            <label class="check-item">
+                              <input 
+                                type="checkbox" 
+                                class="progress-checkbox" 
+                                data-id="${item.id}" 
+                                ${checked ? "checked" : ""}
+                              >
+                              <span>${item.content}</span>
+                            </label>
+                          `;
+                        })
+                        .join("")}
+                    </div>
+                  </div>
+                `;
+              })
+              .join("")
+          : `<p>등록된 체크리스트가 없습니다.</p>`
+      }
 
-                  return `
-                    <label class="check-item">
-                      <input 
-                        type="checkbox" 
-                        class="progress-checkbox"
-                        data-id="${item.id}"
-                        ${checked ? "checked" : ""}
-                      />
-                      ${item.content}
-                    </label>
-                  `;
-                })
-                .join("")}
-            </div>
-          </div>
-        `;
-      })
-      .join("")}
-
-    <div class="save-area">
-      <span id="saveMessage"></span>
-      <button id="saveProgressButton" class="save-button">저장</button>
+      <div class="save-area">
+        <span id="saveMessage"></span>
+        <button class="save-button" id="saveProgressButton">저장</button>
+      </div>
     </div>
   `;
 
@@ -261,7 +171,7 @@ function renderPurchasedView() {
   const saveButton = document.getElementById("saveProgressButton");
 
   saveButton.addEventListener("click", () => {
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progressState));
+    localStorage.setItem(getProgressKey(), JSON.stringify(progressState));
 
     const saveMessage = document.getElementById("saveMessage");
     saveMessage.textContent = "저장되었습니다.";
@@ -272,4 +182,36 @@ function renderPurchasedView() {
   });
 }
 
-renderDetailPage();
+async function initDetailPage() {
+  if (!roadmapId) {
+    detailContainer.innerHTML = `
+      <div class="detail-card">
+        <p>잘못된 접근입니다. 로드맵 ID가 없습니다.</p>
+      </div>
+    `;
+    return;
+  }
+
+  try {
+    roadmapData = await fetchRoadmapDetail();
+
+    progressState = JSON.parse(localStorage.getItem(getProgressKey())) || {};
+
+    if (isPurchased()) {
+      renderPurchasedView();
+    } else {
+      renderLockedView();
+    }
+  } catch (error) {
+    console.error("상세 페이지 오류:", error);
+
+    detailContainer.innerHTML = `
+      <div class="detail-card">
+        <p>로드맵 상세 정보를 불러오지 못했습니다.</p>
+        <button class="back-button" onclick="history.back()">← 돌아가기</button>
+      </div>
+    `;
+  }
+}
+
+initDetailPage();

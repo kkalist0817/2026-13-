@@ -311,6 +311,7 @@ button {
   font-weight: bold;
 }
 
+/* 반응형 */
 @media (max-width: 800px) {
   .card-grid {
     grid-template-columns: 1fr;
@@ -331,4 +332,91 @@ button {
   .search-bar {
     flex-direction: column;
   }
+}
+
+/* 로드맵 생성 페이지 - 주차/체크리스트 스타일 */
+.week-block {
+  margin-top: 24px;
+  padding: 22px;
+  border-radius: 18px;
+  background-color: #f1f5f9;
+}
+
+.week-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.week-block .week-label {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background-color: #dbe4ef;
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.checklist-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checklist-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fake-checkbox {
+  font-size: 22px;
+  color: #334155;
+  line-height: 1;
+}
+
+.checklist-input {
+  flex: 1;
+  min-width: 360px;
+  max-width: 720px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: white;
+}
+
+.delete-week-btn,
+.delete-checklist-btn,
+.add-checklist-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.delete-week-btn,
+.delete-checklist-btn {
+  background-color: white;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.add-checklist-btn {
+  margin-top: 14px;
+  background-color: #0f766e;
+  color: white;
+}
+
+.delete-week-btn:hover,
+.delete-checklist-btn:hover {
+  background-color: #e2e8f0;
+}
+
+.add-checklist-btn:hover {
+  background-color: #0d5f59;
 }

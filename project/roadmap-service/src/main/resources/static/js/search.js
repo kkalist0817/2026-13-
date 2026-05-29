@@ -1,38 +1,3 @@
-const mockRoadmaps = [
-  {
-    id: 1,
-    title: "ADsP 3주 단기합격",
-    description: "노베이스도 가능한 ADsP 합격 로드맵입니다.",
-    duration: "3주",
-    difficulty: "중상",
-    startLevel: "비전공자"
-  },
-  {
-    id: 2,
-    title: "노베이스 ADsP 합격",
-    description: "처음 시작하는 사람을 위한 ADsP 로드맵입니다.",
-    duration: "4주",
-    difficulty: "중",
-    startLevel: "초보자"
-  },
-  {
-    id: 3,
-    title: "정보처리기사 실기",
-    description: "한 달 만에 끝내는 정처기 실기 로드맵입니다.",
-    duration: "4주",
-    difficulty: "상",
-    startLevel: "전공자"
-  },
-  {
-    id: 4,
-    title: "TOEIC 950점 달성",
-    description: "토익 고득점을 목표로 하는 2개월 집중 로드맵입니다.",
-    duration: "2개월",
-    difficulty: "상",
-    startLevel: "700점 이상"
-  }
-];
-
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 const resultContainer = document.getElementById("resultContainer");
@@ -44,8 +9,8 @@ function renderRoadmapCards(roadmaps) {
   if (roadmaps.length === 0) {
     resultContainer.innerHTML = `
       <div class="empty-result">
-        <p>검색 결과가 없습니다.</p>
-        <span>다른 키워드로 검색해보세요.</span>
+        <h3>검색 결과가 없습니다.</h3>
+        <p>다른 키워드로 검색해보세요.</p>
       </div>
     `;
     return;
@@ -54,12 +19,11 @@ function renderRoadmapCards(roadmaps) {
   resultContainer.innerHTML = roadmaps
     .map((roadmap) => {
       return `
-        <button class="roadmap-card" data-id="${roadmap.id}">
-          <div class="card-thumbnail"></div>
+        <div class="roadmap-card" data-id="${roadmap.id}">
           <h3>${roadmap.title}</h3>
           <p>${roadmap.description}</p>
           <span>${roadmap.duration} · ${roadmap.difficulty} · ${roadmap.startLevel}</span>
-        </button>
+        </div>
       `;
     })
     .join("");
@@ -74,20 +38,51 @@ function renderRoadmapCards(roadmaps) {
   });
 }
 
-function searchRoadmaps() {
-  const keyword = searchInput.value.trim().toLowerCase();
-
-  const filteredRoadmaps = mockRoadmaps.filter((roadmap) => {
-    return (
-      roadmap.title.toLowerCase().includes(keyword) ||
-      roadmap.description.toLowerCase().includes(keyword) ||
-      roadmap.duration.toLowerCase().includes(keyword) ||
-      roadmap.difficulty.toLowerCase().includes(keyword) ||
-      roadmap.startLevel.toLowerCase().includes(keyword)
-    );
+async function fetchAllRoadmaps() {
+  const response = await fetch("/api/v1/roadmaps", {
+    method: "GET",
+    credentials: "include"
   });
 
-  renderRoadmapCards(filteredRoadmaps);
+  if (!response.ok) {
+    throw new Error("전체 로드맵 조회 실패");
+  }
+
+  return response.json();
+}
+
+async function fetchSearchRoadmaps(keyword) {
+  const response = await fetch(`/api/v1/roadmaps/search?keyword=${encodeURIComponent(keyword)}`, {
+    method: "GET",
+    credentials: "include"
+  });
+
+  if (!response.ok) {
+    throw new Error("로드맵 검색 실패");
+  }
+
+  return response.json();
+}
+
+async function searchRoadmaps() {
+  const keyword = searchInput.value.trim();
+
+  try {
+    const roadmaps = keyword
+      ? await fetchSearchRoadmaps(keyword)
+      : await fetchAllRoadmaps();
+
+    renderRoadmapCards(roadmaps);
+  } catch (error) {
+    console.error("검색 API 오류:", error);
+    resultCount.textContent = "0개";
+    resultContainer.innerHTML = `
+      <div class="empty-result">
+        <h3>로드맵을 불러오지 못했습니다.</h3>
+        <p>잠시 후 다시 시도해주세요.</p>
+      </div>
+    `;
+  }
 }
 
 searchButton.addEventListener("click", searchRoadmaps);
@@ -98,12 +93,15 @@ searchInput.addEventListener("keydown", (event) => {
   }
 });
 
-const urlParams = new URLSearchParams(location.search);
-const initialKeyword = urlParams.get("keyword") || "";
+async function initSearchPage() {
+  const urlParams = new URLSearchParams(location.search);
+  const initialKeyword = urlParams.get("keyword") || "";
 
-if (initialKeyword) {
-  searchInput.value = initialKeyword;
-  searchRoadmaps();
-} else {
-  renderRoadmapCards(mockRoadmaps);
+  if (initialKeyword) {
+    searchInput.value = initialKeyword;
+  }
+
+  await searchRoadmaps();
 }
+
+initSearchPage();
