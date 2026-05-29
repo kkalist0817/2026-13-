@@ -1,39 +1,62 @@
+const API_BASE_URL = "http://localhost:8080/api/v1";
+
+const useridInput = document.getElementById("userid");
+const userpwInput = document.getElementById("userpw");
 const loginBtn = document.getElementById("loginBtn");
-const userId = document.getElementById("userid");
-const userPw = document.getElementById("userpw");
 const errorMessage = document.getElementById("errorMessage");
 
-// 임시로 가입되어 있다고 가정할 아이디와 비밀번호
-const registeredId = "admin";
-const registeredPw = "1234";
+// 처음에는 에러 메시지 숨기기
+errorMessage.style.display = "none";
 
-loginBtn.addEventListener("click", () => {
-  
-  if (!userId.value || !userPw.value) {
+async function handleLogin() {
+  const username = useridInput.value.trim();
+  const password = userpwInput.value.trim();
+
+  // 입력값 예외 처리
+  if (!username || !password) {
     errorMessage.textContent = "아이디와 비밀번호를 모두 입력해주세요.";
     errorMessage.style.display = "block";
     return;
   }
 
-  if (userId.value !== registeredId || userPw.value !== registeredPw) {
-    errorMessage.textContent = "아이디 또는 비밀번호가 잘못되었습니다.";
-    errorMessage.style.display = "block";
-    return;
-  }
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    });
 
- 
-  errorMessage.style.display = "none";
-
-  window.location.href = "pages/main.html";
-});
-
-
-function handleEnterKey(event) {
-    // 누른 키가 'Enter'인지 확인
-    if (event.key === 'Enter') {
-        loginBtn.click(); 
+    if (!response.ok) {
+      throw new Error("로그인 실패");
     }
+
+    const data = await response.json();
+    console.log("로그인 성공:", data);
+
+    errorMessage.style.display = "none";
+
+    alert("로그인에 성공했습니다.");
+
+    // 로그인 성공 후 메인 페이지 이동
+    window.location.href = "pages/main.html";
+  } catch (error) {
+    console.error("로그인 오류:", error);
+
+    errorMessage.textContent = "아이디 또는 비밀번호가 올바르지 않습니다.";
+    errorMessage.style.display = "block";
+  }
 }
 
-userId.addEventListener('keypress', handleEnterKey);
-userPw.addEventListener('keypress', handleEnterKey);
+loginBtn.addEventListener("click", handleLogin);
+
+userpwInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    handleLogin();
+  }
+});

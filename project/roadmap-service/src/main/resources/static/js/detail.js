@@ -117,6 +117,11 @@ const mockDetailData =
   detailDataList.find((roadmap) => roadmap.id === roadmapId) || detailDataList[0];
 
 const PROGRESS_KEY = `roadmap-progress-${mockDetailData.id}`;
+const PURCHASE_KEY = `roadmap-purchased-${mockDetailData.id}`;
+
+const savedPurchased = localStorage.getItem(PURCHASE_KEY) === "true";
+
+mockDetailData.isPurchased = mockDetailData.isPurchased || savedPurchased;
 
 let progressState = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
 
@@ -176,13 +181,15 @@ function renderLockedView() {
 
   const purchaseButton = document.getElementById("purchaseButton");
 
-  purchaseButton.addEventListener("click", () => {
-    alert("구매가 완료되었습니다.");
+purchaseButton.addEventListener("click", () => {
+  alert("구매가 완료되었습니다.");
 
-    mockDetailData.isPurchased = true;
+  localStorage.setItem(PURCHASE_KEY, "true");
+  mockDetailData.isPurchased = true;
 
-    renderPurchasedView();
-  });
+  renderPurchasedView();
+});
+
 }
 
 function renderPurchasedView() {

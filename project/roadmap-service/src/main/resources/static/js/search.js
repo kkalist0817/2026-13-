@@ -98,4 +98,12 @@ searchInput.addEventListener("keydown", (event) => {
   }
 });
 
-renderRoadmapCards(mockRoadmaps);
+const urlParams = new URLSearchParams(location.search);
+const initialKeyword = urlParams.get("keyword") || "";
+
+if (initialKeyword) {
+  searchInput.value = initialKeyword;
+  searchRoadmaps();
+} else {
+  renderRoadmapCards(mockRoadmaps);
+}
