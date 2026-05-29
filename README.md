@@ -206,7 +206,7 @@ http://localhost:8080/login.html
 - 회원가입, 로그인, 로드맵 생성, 구매 내역이 모두 클라우드 DB에 저장됩니다
 - 팀원 모두 같은 DB를 공유하므로 데이터가 실시간으로 반영됩니다
 
-> ⚠️ application.properties의 DB 접속 정보는 대회 심사용 테스트 DB입니다.
+> ⚠️ application.properties의 DB 접속 정보는 해달 해커톤용 테스트 DB입니다.
 
 ---
 
