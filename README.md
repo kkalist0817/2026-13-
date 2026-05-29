@@ -61,7 +61,7 @@ src/
         ├── static/                      # 프론트엔드 파일
         └── application.properties       # 서버 설정
 ```
-
+![ERD](erd.png)
 ---
 
 ## 🗄 데이터베이스 구조
