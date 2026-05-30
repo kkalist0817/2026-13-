@@ -4,6 +4,14 @@
 
 ---
 
+## 🌐 배포 주소
+
+> **[Railway 배포 URL]/login.html** ← Railway Settings > Networking > Generate Domain에서 생성된 주소로 교체해주세요
+
+로컬 실행: `http://localhost:8080/login.html`
+
+---
+
 ## 🛠 기술 스택
 
 | 항목 | 내용 |
@@ -14,6 +22,7 @@
 | ORM | Spring Data JPA / Hibernate |
 | Security | Spring Security |
 | Build Tool | Gradle |
+| Deploy | Railway (Docker 기반 자동 배포) |
 
 ---
 
@@ -198,6 +207,8 @@ IntelliJ에서 `RoadmapServiceApplication.java` 실행
 http://localhost:8080/login.html
 ```
 
+> 기본 테스트 계정: `admin` / `1234`
+
 ---
 
 ## ☁️ 클라우드 DB (Railway)
@@ -206,7 +217,24 @@ http://localhost:8080/login.html
 - 회원가입, 로그인, 로드맵 생성, 구매 내역이 모두 클라우드 DB에 저장됩니다
 - 팀원 모두 같은 DB를 공유하므로 데이터가 실시간으로 반영됩니다
 
-> ⚠️ application.properties의 DB 접속 정보는 해달 해커톤용 테스트 DB입니다.
+> ⚠️ application.properties의 DB 접속 정보는 해당 해커톤용 테스트 DB입니다.
+
+---
+
+## 🚀 배포 (Railway)
+
+GitHub에 push하면 Railway가 자동으로 빌드 및 배포합니다.
+
+### Dockerfile
+```dockerfile
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY . .
+RUN chmod +x gradlew
+RUN ./gradlew bootJar -x test
+EXPOSE 8080
+CMD ["java", "-jar", "build/libs/roadmap-service-0.0.1-SNAPSHOT.jar"]
+```
 
 ---
 
@@ -214,10 +242,9 @@ http://localhost:8080/login.html
 
 - 서버 실행 시 DB 테이블이 자동으로 생성됩니다
 - 별도 MySQL 설치 없이 바로 실행 가능합니다
-
+- 로드맵을 직접 등록하면 자동으로 구매 처리되어 메인 화면 구매내역에 즉시 반영됩니다
 
 ---
-
 
 # 🎨 Frontend 구현 내용
 
@@ -473,4 +500,3 @@ POST /api/v1/roadmaps
 ```
 
 ---
-
