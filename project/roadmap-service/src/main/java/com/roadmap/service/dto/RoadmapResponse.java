@@ -13,6 +13,7 @@ public class RoadmapResponse {
     private String duration;
     private String difficulty;
     private String startLevel;
+    private Long authorId;
     private List<WeekResponse> weeks;
 
     @Getter @Builder
@@ -36,6 +37,7 @@ public class RoadmapResponse {
                 .duration(roadmap.getDuration())
                 .difficulty(roadmap.getDifficulty())
                 .startLevel(roadmap.getStartLevel())
+                .authorId(roadmap.getAuthor() != null ? roadmap.getAuthor().getId() : null)
                 .weeks(roadmap.getWeeks() == null ? List.of() :
                         roadmap.getWeeks().stream().map(w -> WeekResponse.builder()
                                 .weekNumber(w.getWeekNumber())
