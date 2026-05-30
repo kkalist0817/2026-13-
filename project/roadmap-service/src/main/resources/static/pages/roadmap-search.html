@@ -6,41 +6,15 @@
     <title>로드맵 검색 | 꿈조각</title>
     <link rel="stylesheet" href="../css/roadmap.css" />
   </head>
-  <body>
-    <header
-      class="header"
-      style="display: flex; justify-content: space-between; align-items: center"
-    >
-      <button
-        class="logo-button"
-        onclick="location.href = 'main.html'"
-        style="
-          background: none;
-          border: none;
-          cursor: pointer;
-          text-align: left;
-        "
-      >
-        <h1 style="margin: 0; color: #333">꿈조각</h1>
-        <p style="margin: 5px 0 0 0; font-size: 12px; color: #666">
-          목표를 이룬 사람들의 로드맵 거래 플랫폼
-        </p>
+
+  <body class="roadmap-search-page">
+    <header class="header">
+      <button class="logo-button" onclick="location.href='main.html'">
+        <h1>꿈조각</h1>
+        <p>목표를 이룬 사람들의 로드맵 거래 플랫폼</p>
       </button>
 
-      <button
-        onclick="location.href = 'roadmap-create.html'"
-        style="
-          background-color: #0f766e;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 8px;
-          font-size: 14px;
-          font-weight: bold;
-          cursor: pointer;
-          transition: background 0.2s;
-        "
-      >
+      <button class="create-roadmap-button" onclick="location.href='roadmap-create.html'">
         + 로드맵 만들기
       </button>
     </header>

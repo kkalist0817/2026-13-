@@ -420,3 +420,592 @@ button {
 .add-checklist-btn:hover {
   background-color: #0d5f59;
 }
+
+/* =========================
+   Main Page Colorful UI
+========================= */
+
+.main-page {
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, 0.16), transparent 34%),
+    radial-gradient(circle at top right, rgba(20, 184, 166, 0.18), transparent 30%),
+    linear-gradient(180deg, #f8fbff 0%, #eef4f8 100%);
+  min-height: 100vh;
+}
+
+.main-page .header {
+  height: 82px;
+  padding: 16px 36px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.main-page .logo-button h1 {
+  font-size: 28px;
+  color: #0f172a;
+}
+
+.main-page .logo-button h1::before {
+  content: "🧩 ";
+}
+
+.main-page .logo-button p {
+  color: #64748b;
+  font-weight: 600;
+}
+
+
+.search-page .logo-button h1 {
+  font-size: 28px;
+  color: #0f172a;
+}
+
+.search-page .logo-button h1::before {
+  content: "🧩 ";
+}
+
+.search-page .logo-button p {
+  color: #64748b;
+  font-weight: 600;
+}
+
+
+/*.main-page #addBtn {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #0f766e 0%, #0ea5e9 100%);
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(14, 165, 233, 0.24);
+  transition: 0.2s ease;
+}
+
+.main-page #addBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(14, 165, 233, 0.32);
+}
+*/
+
+.main-page .container {
+  width: min(100%, 1180px);
+  padding-top: 38px;
+}
+
+.main-hero {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.hero-text,
+.hero-card {
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+.hero-text {
+  padding: 36px 38px;
+  background:
+    linear-gradient(135deg, rgba(240, 249, 255, 0.95), rgba(236, 253, 245, 0.88)),
+    white;
+}
+
+.hero-badge {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #dff6ff;
+  color: #0284c7;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.hero-text h2 {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.25;
+  letter-spacing: -1px;
+  color: #0f172a;
+}
+
+.hero-text p {
+  margin: 16px 0 0;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.hero-card {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:
+    linear-gradient(135deg, rgba(255, 247, 237, 0.95), rgba(240, 253, 250, 0.9)),
+    white;
+}
+
+.hero-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.hero-card p {
+  margin: 0 0 8px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.hero-card strong {
+  color: #0f172a;
+  font-size: 20px;
+  line-height: 1.45;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 34px;
+}
+
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  background: white;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.dashboard-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.dashboard-card p {
+  margin: 0 0 6px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.dashboard-card h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 18px;
+}
+
+.card-blue {
+  background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+}
+
+.card-green {
+  background: linear-gradient(135deg, #ccfbf1, #f8fafc);
+}
+
+.card-orange {
+  background: linear-gradient(135deg, #ffedd5, #f8fafc);
+}
+
+.main-page .search-section {
+  margin-bottom: 44px;
+}
+
+.main-page .search-bar {
+  max-width: 760px;
+  border-radius: 22px;
+  padding: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+}
+
+.main-page .search-bar input {
+  font-size: 16px;
+  padding: 14px 16px;
+}
+
+.main-page .search-button {
+  border-radius: 16px;
+  padding: 14px 26px;
+  background: linear-gradient(135deg, #475569, #0f766e);
+  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.2);
+}
+
+.main-page .section-title {
+  margin-top: 16px;
+  margin-bottom: 18px;
+}
+
+.main-page .section-title h2 {
+  font-size: 24px;
+}
+
+.main-page .section-title h2::before {
+  content: "📌 ";
+}
+
+.main-page .card-grid {
+  gap: 22px;
+}
+
+.main-page .roadmap-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 168px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(203, 213, 225, 0.75);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+}
+
+.main-page .roadmap-card::before {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  right: -44px;
+  top: -44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.26), rgba(20, 184, 166, 0.2));
+}
+
+.main-page .roadmap-card:nth-child(3n + 1) {
+  background: linear-gradient(135deg, #ffffff, #eff6ff);
+}
+
+.main-page .roadmap-card:nth-child(3n + 2) {
+  background: linear-gradient(135deg, #ffffff, #ecfdf5);
+}
+
+.main-page .roadmap-card:nth-child(3n) {
+  background: linear-gradient(135deg, #ffffff, #fff7ed);
+}
+
+.main-page .roadmap-card:hover {
+  transform: translateY(-5px);
+  background-color: white;
+  box-shadow: 0 22px 42px rgba(15, 23, 42, 0.12);
+}
+
+.main-page .card-thumbnail {
+  width: 72px;
+  height: 10px;
+  background: linear-gradient(90deg, #0ea5e9, #14b8a6);
+}
+
+.main-page .roadmap-card h3 {
+  position: relative;
+  font-size: 18px;
+  color: #0f172a;
+}
+
+.main-page .roadmap-card p,
+.main-page .roadmap-card span {
+  position: relative;
+}
+
+.empty-purchased-message {
+  grid-column: 1 / -1;
+  padding: 46px 24px !important;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #ffffff, #f0fdfa);
+  border: 1px dashed #99f6e4;
+  color: #64748b !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+}
+
+@media (max-width: 900px) {
+  .main-hero,
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-text h2 {
+    font-size: 28px;
+  }
+}
+
+.create-roadmap-button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #0f766e 0%, #0ea5e9 100%);
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(14, 165, 233, 0.24);
+  transition: 0.2s ease;
+}
+
+.create-roadmap-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(14, 165, 233, 0.32);
+}
+
+/* =========================
+   Main Page Simplify Override
+========================= */
+
+/* 오늘의 추천 흐름 카드 제거 후 hero를 한 줄 카드처럼 정리 */
+.simple-hero {
+  display: block;
+  margin-bottom: 28px;
+}
+
+.simple-hero .hero-text {
+  width: 100%;
+  max-width: none;
+  padding: 34px 38px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, #ffffff 0%, #eef7ff 100%);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+.simple-hero .hero-text h2 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.3;
+  color: #0f172a;
+}
+
+.simple-hero .hero-text p {
+  margin: 14px 0 0;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* 구매내역 카드 위 바 제거 */
+.main-page .card-thumbnail {
+  display: none;
+}
+
+/* 구매내역 카드 심플하게 정리 */
+.main-page .roadmap-card {
+  min-height: 160px;
+  padding: 30px 28px;
+  border-radius: 24px;
+}
+
+.main-page .roadmap-card h3 {
+  margin: 0 0 22px;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+/* 이어서 학습하기 링크 스타일 */
+.main-page .roadmap-link {
+  display: inline-block;
+  color: #0f766e;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+/* 카드 안의 기존 span */
+.main-page .roadmap-card span {
+  display: inline-block;
+  margin-top: 4px;
+  color: #0f766e;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+/* =========================
+   Search Page Colorful UI
+========================= */
+
+body:not(.main-page) .container {
+  width: min(100%, 1180px);
+}
+
+body:not(.main-page) .search-section {
+  margin-top: 24px;
+  margin-bottom: 46px;
+  padding: 36px 28px;
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(240, 249, 255, 0.88)),
+    white;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.07);
+}
+
+body:not(.main-page) .search-section::before {
+  content: "🔎 원하는 목표 로드맵을 찾아보세요";
+  display: block;
+  margin-bottom: 18px;
+  text-align: center;
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+body:not(.main-page) .search-bar {
+  max-width: 760px;
+  border-radius: 22px;
+  padding: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+}
+
+body:not(.main-page) .search-bar input {
+  font-size: 16px;
+  padding: 14px 16px;
+}
+
+body:not(.main-page) .search-button {
+  border-radius: 16px;
+  padding: 14px 26px;
+  background: linear-gradient(135deg, #475569, #0f766e);
+  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.2);
+}
+
+body:not(.main-page) .section-title {
+  margin-bottom: 22px;
+}
+
+body:not(.main-page) .section-title h2 {
+  font-size: 26px;
+  letter-spacing: -0.5px;
+}
+
+body:not(.main-page) .section-title h2::before {
+  content: "✨ ";
+}
+
+body:not(.main-page) .section-title span {
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0284c7;
+  font-weight: 800;
+}
+
+body:not(.main-page) .card-grid {
+  gap: 22px;
+}
+
+body:not(.main-page) .roadmap-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 170px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(203, 213, 225, 0.75);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+  padding: 28px 26px;
+}
+
+body:not(.main-page) .roadmap-card::before {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  right: -42px;
+  top: -42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(20, 184, 166, 0.18));
+}
+
+body:not(.main-page) .roadmap-card:nth-child(3n + 1) {
+  background: linear-gradient(135deg, #ffffff, #eff6ff);
+}
+
+body:not(.main-page) .roadmap-card:nth-child(3n + 2) {
+  background: linear-gradient(135deg, #ffffff, #ecfdf5);
+}
+
+body:not(.main-page) .roadmap-card:nth-child(3n) {
+  background: linear-gradient(135deg, #ffffff, #fff7ed);
+}
+
+body:not(.main-page) .roadmap-card:hover {
+  transform: translateY(-5px);
+  background-color: white;
+  box-shadow: 0 22px 42px rgba(15, 23, 42, 0.12);
+}
+
+body:not(.main-page) .roadmap-card h3 {
+  position: relative;
+  margin: 0 0 12px;
+  font-size: 19px;
+  color: #0f172a;
+}
+
+body:not(.main-page) .roadmap-card p {
+  position: relative;
+  margin-bottom: 18px;
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+body:not(.main-page) .roadmap-card span {
+  position: relative;
+  display: inline-block;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+body:not(.main-page) .empty-result {
+  border: 1px dashed #bae6fd;
+  background: linear-gradient(135deg, #ffffff, #f0f9ff);
+}
+
+.roadmap-search-page .header {
+  height: 82px;
+  padding: 16px 36px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.roadmap-search-page .logo-button h1 {
+  font-size: 28px;
+  color: #0f172a;
+}
+
+.roadmap-search-page .logo-button h1::before {
+  content: "🧩 ";
+}
+
+.roadmap-search-page .logo-button p {
+  color: #64748b;
+  font-weight: 600;
+}
