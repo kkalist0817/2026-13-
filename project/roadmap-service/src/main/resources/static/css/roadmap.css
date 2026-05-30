@@ -1009,3 +1009,7 @@ body:not(.main-page) .empty-result {
   color: #64748b;
   font-weight: 600;
 }
+
+.purchased-badge {
+  display: none;
+}
