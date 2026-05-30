@@ -17,6 +17,7 @@ public class RoadmapService {
 
     private final RoadmapRepository roadmapRepository;
     private final UserRepository userRepository;
+    private final PurchaseRepository purchaseRepository;  // ← 추가
 
     public List<RoadmapResponse> getAllRoadmaps() {
         return roadmapRepository.findAll().stream()
@@ -35,7 +36,6 @@ public class RoadmapService {
     }
 
     public RoadmapResponse getPreview(Long id) {
-        // 미리보기: 제목, 기간, 난이도만 반환 (체크리스트 제외)
         Roadmap roadmap = roadmapRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("로드맵을 찾을 수 없습니다."));
         return RoadmapResponse.builder()
@@ -78,7 +78,15 @@ public class RoadmapService {
             roadmap.setWeeks(weeks);
         }
 
-        return RoadmapResponse.from(roadmapRepository.save(roadmap));
+        // 로드맵 저장
+        Roadmap saved = roadmapRepository.save(roadmap);
+
+        // 본인 로드맵 자동 구매 추가  ← 추가
+        purchaseRepository.save(
+                Purchase.builder().user(user).roadmap(saved).build()
+        );
+
+        return RoadmapResponse.from(saved);
     }
 
     @Transactional
