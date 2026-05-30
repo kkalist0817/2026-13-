@@ -449,10 +449,11 @@ POST /api/v1/roadmaps
 배포 환경에서도 같은 서버에서 정적 파일과 API가 함께 제공되므로, API 요청은 /api/v1/... 형태의 상대 경로를 사용했습니다.
 
 예시:
-
+```javascript
 fetch("/api/v1/roadmaps")
 fetch("/api/v1/auth/login")
 fetch("/api/v1/purchases")
+```
 
 이를 통해 로컬 환경과 Railway 배포 환경에서 동일한 코드로 동작할 수 있도록 구성했습니다.
 
