@@ -184,7 +184,7 @@ purchases      # 구매 내역
 |--------|------|------|
 | GET | `/api/v1/roadmaps/{id}/checklists` | 체크리스트 조회 |
 | PATCH | `/api/v1/checklists/{id}/progress` | 체크박스 상태 저장 |
-
+| GET | `/api/v1/roadmaps/{id}/progress-rate` | 진도율 조회 |
 ---
 
 ## ⚙️ 실행 방법
