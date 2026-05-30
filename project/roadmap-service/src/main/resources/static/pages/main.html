@@ -6,7 +6,7 @@
   <title>메인 화면 | 꿈조각</title>
   <link rel="stylesheet" href="../css/roadmap.css" />
 </head>
-<body>
+<body class="main-page">
 
   <!-- 교체할 헤더 영역 -->
 <header class="header" style="display: flex; justify-content: space-between; align-items: center;">
@@ -15,18 +15,57 @@
     <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">목표를 이룬 사람들의 로드맵 거래 플랫폼</p>
   </button>
 
-  <!-- 🌟 새로 추가된 로드맵 만들기 버튼 -->
-  <button onclick="location.href='roadmap-create.html'" style="background-color: #0f766e; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: background 0.2s;">
-    + 로드맵 만들기
+  <!-- 🌟 로드맵 만들기 버튼 -->
+  <button class="create-roadmap-button" onclick="location.href='roadmap-create.html'">
+  + 로드맵 만들기
   </button>
+
+
 </header>
   
 
   <main class="container">
+    <section class="main-hero simple-hero">
+      <div class="hero-text">
+        <span class="hero-badge">✨ 꿈조각 Dashboard</span>
+        <h2>내 로드맵을 한눈에 관리해보세요</h2>
+        <p>
+          구매한 로드맵을 이어서 학습하고,
+          새로운 로드맵을 탐색하거나 직접 만들어 공유할 수 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="dashboard-cards">
+      <div class="dashboard-card card-blue">
+        <div class="dashboard-icon">🎯</div>
+        <div>
+          <p>내 학습 목표</p>
+          <h3>로드맵으로 구체화</h3>
+        </div>
+      </div>
+
+      <div class="dashboard-card card-green">
+        <div class="dashboard-icon">📚</div>
+        <div>
+          <p>로드맵 탐색</p>
+          <h3>경험 기반 계획 확인</h3>
+        </div>
+      </div>
+
+      <div class="dashboard-card card-orange">
+        <div class="dashboard-icon">🔥</div>
+        <div>
+          <p>진행 관리</p>
+          <h3>체크리스트로 실천</h3>
+        </div>
+      </div>
+    </section>
+
     <section class="search-section">
       <div class="search-bar">
         <input id="mainSearchInput" type="text" placeholder="검색어를 입력하세요" />
-        <button id="mainSearchButton">검색</button>
+        <button id="mainSearchButton" class="search-button">검색</button>
       </div>
     </section>
 

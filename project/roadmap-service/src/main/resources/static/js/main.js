@@ -35,13 +35,15 @@ async function renderRoadmaps() {
     return;
   }
 
+
   const cardsHtml = myPurchasedRoadmaps.map(roadmap => `
     <button class="roadmap-card" onclick="window.location.href='loadmap-detail.html?id=${roadmap.id}'">
-      <div class="card-thumbnail"></div>
-      <h3>${roadmap.title}</h3>
-      <span style="display:inline-block; margin-top:10px; color:#0f766e; font-weight:bold;">이어서 학습하기 &rarr;</span>
+        <div class="roadmap-card-content">
+            <h3>${roadmap.title}</h3>
+            <span class="roadmap-link">이어서 학습하기 &rarr;</span>
+        </div>
     </button>
-  `).join("");
+  `).join('');
 
   addBtn.insertAdjacentHTML("beforebegin", cardsHtml);
 }
