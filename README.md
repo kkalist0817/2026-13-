@@ -5,8 +5,8 @@
 ---
 
 ## 🌐 배포 주소
-
-> **[Railway 배포 URL]/login.html** ← Railway Settings > Networking > Generate Domain에서 생성된 주소로 교체해주세요
+Railway 배포 URL:
+https://2026-13-production.up.railway.app/login.html
 
 로컬 실행: `http://localhost:8080/login.html`
 
