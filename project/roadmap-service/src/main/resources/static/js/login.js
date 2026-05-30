@@ -39,9 +39,11 @@ async function handleLogin() {
     const data = await response.json();
     console.log("로그인 성공:", data);
 
+    localStorage.setItem("userId", data.id);  // ✅ 이 줄 추가
+
     hideError();
 
-    // 로그인 성공 후 메인 화면으로 이동
+// 로그인 성공 후 메인 화면으로 이동
     window.location.href = "pages/main.html";
   } catch (error) {
     console.error("로그인 오류:", error);
